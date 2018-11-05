@@ -13,8 +13,7 @@
 		"config", 
 		"configuration", 
 		"syntax", 
-		"yaml",
-		"support", 
+		"yaml"
 	],
 	"license": ["BSD-3-Clause"],
 	"authors": [{

@@ -14,14 +14,14 @@
 namespace MvcCore\Ext\Configs;
 
 /**
+ * 
  */
 class Yaml implements \MvcCore\IConfig
 {
 	use \MvcCore\Config\Environment;
+	use \MvcCore\Config\PropsGettersSetters;
 	use \MvcCore\Config\ReadingWriting;
-	use \MvcCore\Config\Environment;
+	use \MvcCore\Ext\Configs\Yamls\PropsYaml;
 	use \MvcCore\Ext\Configs\Yamls\ReadingYaml;
 	use \MvcCore\Ext\Configs\Yamls\WritingYaml;
-	
-	public static $SystemConfigPath = '/%appPath%/config.yaml';
 }
