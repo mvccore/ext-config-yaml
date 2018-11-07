@@ -16,12 +16,12 @@ namespace MvcCore\Ext\Configs;
 /**
  * 
  */
-class Yaml implements \MvcCore\IConfig
+class Yaml /*extends \MvcCore\Config*/ implements \MvcCore\IConfig
 {
 	use \MvcCore\Config\Environment;
 	use \MvcCore\Config\PropsGettersSetters;
 	use \MvcCore\Config\ReadingWriting;
-	use \MvcCore\Ext\Configs\Yamls\PropsYaml;
-	use \MvcCore\Ext\Configs\Yamls\ReadingYaml;
-	use \MvcCore\Ext\Configs\Yamls\WritingYaml;
+	use \MvcCore\Ext\Configs\Yamls\YamlProps;
+	use \MvcCore\Ext\Configs\Yamls\YamlRead;
+	use \MvcCore\Ext\Configs\Yamls\YamlDump;
 }
