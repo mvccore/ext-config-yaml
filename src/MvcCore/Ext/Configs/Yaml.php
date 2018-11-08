@@ -20,7 +20,7 @@ class Yaml extends \ArrayObject implements \MvcCore\IConfig
 {
 	use \MvcCore\Config\Environment;
 	use \MvcCore\Config\PropsGettersSetters;
-	use \MvcCore\Config\ReadingWriting;
+	use \MvcCore\Config\ReadWrite;
 	use \MvcCore\Config\MagicMethods;
 	use \MvcCore\Ext\Configs\Yamls\YamlProps;
 	use \MvcCore\Ext\Configs\Yamls\YamlRead;
