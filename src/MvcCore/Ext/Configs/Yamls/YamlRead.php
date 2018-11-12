@@ -46,7 +46,9 @@ trait YamlRead
 		if ($this->data) return $this->data;
 		$this->fullPath = $fullPath;
 		$this->system = $systemConfig;
-		$rawContent = file_get_contents($this->fullPath);
+		clearstatcache(TRUE, $fullPath);
+		$this->lastChanged = filemtime($fullPath);
+		$rawContent = file_get_contents($fullPath);
 		if ($rawContent === FALSE) return FALSE;
 		$rawYamlData = NULL;
 		try {
