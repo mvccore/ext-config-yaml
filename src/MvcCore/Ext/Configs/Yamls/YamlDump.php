@@ -34,7 +34,9 @@ trait YamlDump
 		$dataClone = unserialize(serialize($this->data));
 		$maxLevel = 0;
 		$dataClone = $this->dumpYamlObjectTypes($dataClone, $maxLevel);
-		return Yaml::dump($dataClone, $maxLevel, 4, self::$dumpingFlags);
+		$result = Yaml::dump($dataClone, $maxLevel, 4, self::$dumpingFlags);
+		if (!$result) $result = FALSE;
+		return $result;
 	}
 
 	protected function dumpYamlObjectTypes (& $data, & $maxLevel, $level = 0) {
