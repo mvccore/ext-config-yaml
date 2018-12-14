@@ -63,7 +63,7 @@ trait YamlRead
 		if (!$rawYamlData) return FALSE;
 		$this->data = [];
 		$environment = $this->system
-			? static::environmentDetectBySystemConfig($rawYamlData)
+			? static::envDetectBySystemConfig($rawYamlData)
 			: static::$environment;
 		$environmentConfigFullPath = mb_substr($this->fullPath, 0, -4) . $environment . '.yaml';
 		if (file_exists($environmentConfigFullPath)) {
