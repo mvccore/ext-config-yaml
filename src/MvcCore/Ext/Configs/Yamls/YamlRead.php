@@ -15,17 +15,27 @@ namespace MvcCore\Ext\Configs\Yamls;
 
 use Symfony\Component\Yaml\Yaml;
 
-/**
- *
- */
 trait YamlRead
 {
+	/**
+	 * Global flags configuration for YAML reading.
+	 * @var int
+	 */
 	protected static $readingFlags = 0;
 
+	/**
+	 * Set globally MvcCore YAML Config reading flags.
+	 * @param int $readingFlags 
+	 * @return int
+	 */
 	public static function SetReadingFlags ($readingFlags) {
-		self::$readingFlags = $readingFlags;
+		return self::$readingFlags = $readingFlags;
 	}
 
+	/**
+	 * Get globally configured MvcCore YAML Config reading flags.
+	 * @return int
+	 */
 	public static function GetReadingFlags () {
 		return self::$readingFlags;
 	}
@@ -34,7 +44,8 @@ trait YamlRead
 	 * Load config file and return `TRUE` for success or `FALSE` in failure.
 	 * - Second environment value setup:
 	 *   - Only if `$this->system` property is defined as `TRUE`.
-	 *   - By defined IPs or computer names in `environments` section.
+	 *   - By defined client IPs, server hostnames or environment variables 
+	 *     in `environments` section. By values or regular expressions.
 	 * - Load also environment specific config files and merge with already loaded data.
 	 * - Return all `raw string` values as `array`, `float`, `int` or `boolean` types.
 	 * - Retype whole values level into `\stdClass`, if there are no numeric keys.
@@ -94,6 +105,13 @@ trait YamlRead
 		return TRUE;
 	}
 
+	/**
+	 * Process all decoded YAML arrays and detect if there are all keys numeric
+	 * or not. If there is no numeric key, convert that array into `\stdClass`.
+	 * @param array $data 
+	 * @param string $levelKey 
+	 * @return void
+	 */
 	protected function readYamlObjectTypes (& $data, $levelKey) {
 		if (is_array($data)) {
 			$numericKeyCatched = FALSE;

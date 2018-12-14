@@ -13,9 +13,6 @@
 
 namespace MvcCore\Ext\Configs\Yamls;
 
-/**
- *
- */
 trait YamlProps
 {
 	/**

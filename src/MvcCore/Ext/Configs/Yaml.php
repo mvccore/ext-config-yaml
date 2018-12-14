@@ -14,7 +14,19 @@
 namespace MvcCore\Ext\Configs;
 
 /**
- * 
+ * Responsibility - reading/writing config file(s), 
+ *					detecting environment in system config.
+ * - Config file(s) reading:
+ *   - Reading any `config.yaml` file by rel. path with optional env. suffix.
+ *   - Parsing and typing YAML data into `stdClass|array` by key types.
+ * - Config file(s) writing:
+ *   - Dumping `stdClass`es and `array`s into YAML syntax string without any
+ *     other records for different environment (not like core config class).
+ *   - Storing serialized config data in single process.
+ * - Environment management and detection by:
+ *   - comparing server and client IP, by value or regular expression.
+ *   - comparing server hostname or IP, by value or regular expression.
+ *   - checking system environment variable existence, value or by regular exp.
  */
 class Yaml extends \ArrayObject implements \MvcCore\IConfig
 {
