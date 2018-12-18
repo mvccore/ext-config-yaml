@@ -30,6 +30,13 @@ namespace MvcCore\Ext\Configs;
  */
 class Yaml extends \ArrayObject implements \MvcCore\IConfig
 {
+	/**
+	 * MvcCore - version:
+	 * Comparison by PHP function `version_compare();`.
+	 * @see http://php.net/manual/en/function.version-compare.php
+	 */
+	const VERSION = '5.0.0-alpha';
+
 	use \MvcCore\Config\Environment;
 	use \MvcCore\Config\PropsGettersSetters;
 	use \MvcCore\Config\ReadWrite;
