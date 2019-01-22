@@ -73,8 +73,9 @@ trait YamlRead
 		}
 		if (!$rawYamlData) return FALSE;
 		$this->data = [];
-		$environment = $this->system
-			? static::envDetectBySystemConfig($rawYamlData)
+		$envsSectionName = static::$environmentsSectionName;
+		$environment = $this->system && isset($rawYamlData[$envsSectionName])
+			? static::envDetectBySystemConfig($rawYamlData[$envsSectionName])
 			: static::$environment;
 		$environmentConfigFullPath = mb_substr($this->fullPath, 0, -4) . $environment . '.yaml';
 		if (file_exists($environmentConfigFullPath)) {
