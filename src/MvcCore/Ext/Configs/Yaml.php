@@ -37,7 +37,6 @@ class Yaml extends \ArrayObject implements \MvcCore\IConfig
 	 */
 	const VERSION = '5.0.0-alpha';
 
-	use \MvcCore\Config\Environment;
 	use \MvcCore\Config\PropsGettersSetters;
 	use \MvcCore\Config\ReadWrite;
 	use \MvcCore\Config\MagicMethods;
