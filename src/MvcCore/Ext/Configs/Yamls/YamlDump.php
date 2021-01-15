@@ -48,7 +48,7 @@ trait YamlDump
 	 * @return \bool|string
 	 */
 	public function Dump () {
-		$dataClone = unserialize(serialize($this->data)); // clone
+		$dataClone = unserialize(serialize($this->currentData)); // clone
 		$maxLevel = 0;
 		$dataClone = $this->dumpYamlObjectTypes($dataClone, $maxLevel);
 		$result = Yaml::dump($dataClone, $maxLevel, 4, self::$dumpingFlags);

@@ -53,59 +53,69 @@ trait YamlRead
 	 * @param bool $systemConfig
 	 * @return bool
 	 */
-	public function Read ($fullPath, $systemConfig = FALSE) {
-		if ($this->data) return $this->data;
-		$this->fullPath = $fullPath;
-		$this->system = $systemConfig;
-		clearstatcache(TRUE, $fullPath);
-		$this->lastChanged = filemtime($fullPath);
-		$rawContent = file_get_contents($fullPath);
-		if ($rawContent === FALSE) return FALSE;
-		$rawYamlData = NULL;
-		try {
-			$rawYamlData = Yaml::parse(str_replace("\t", '    ', $rawContent), self::$readingFlags);
-		} catch (\Exception $e) {
-			if ($systemConfig) {
-				throw $e;
-			} else {
-				\MvcCore\Debug::Log($e);
-			}
-		}
-		if (!$rawYamlData) return FALSE;
-		$this->data = [];
-		$envsSectionName = static::$environmentsSectionName;
+	public function Read () {
+		/** @var $this \MvcCore\Config */
+		if ($this->envData) return TRUE;
+		
 		$app = self::$app ?: self::$app = \MvcCore\Application::GetInstance();
-		$envClass = $app->GetEnvironmentClass();
-		$environmentName = $this->system && isset($rawYamlData[$envsSectionName])
-			? $envClass::DetectBySystemConfig($rawYamlData[$envsSectionName])
-			: $envClass::GetName(FALSE);
-		$environmentConfigFullPath = mb_substr($this->fullPath, 0, -4) . $environmentName . '.yaml';
-		if (file_exists($environmentConfigFullPath)) {
-			$rawEnvironmentContent = file_get_contents($environmentConfigFullPath);
-			if ($rawEnvironmentContent !== FALSE) {
-				$rawEnvYamlData = NULL;
-				try {
-					$rawEnvYamlData = Yaml::parse(
-						str_replace("\t", '    ', $rawEnvironmentContent), 
-						self::$readingFlags
-					);
-				} catch (\Exception $e) {
-					if ($systemConfig) {
-						throw $e;
-					} else {
-						\MvcCore\Debug::Log($e);
-					}
-				}
-				if ($rawEnvYamlData)
-					$rawYamlData = array_replace_recursive($rawYamlData, $rawEnvYamlData);
+		$environmentClass = $app->GetEnvironmentClass();
+		$allEnvNames = array_merge([''], $environmentClass::GetAllNames());
+		$fullPathLastDot = mb_strrpos($this->fullPath, '.');
+		$fullPathParts = [
+			mb_substr($this->fullPath, 0, $fullPathLastDot),
+			'',
+			mb_substr($this->fullPath, $fullPathLastDot),
+		];
+		foreach ($allEnvNames as $envName) {
+			$commonEnv = $envName === '';
+			if ($commonEnv) {
+				$fullPath = $this->fullPath;
+			} else {
+				$fullPathParts[1] = '.' . $envName;
+				$fullPath = implode('', $fullPathParts);
 			}
+			
+			clearstatcache(TRUE, $fullPath);
+			if (!file_exists($fullPath)) {
+				if ($commonEnv) return FALSE;
+				continue;
+			}
+			
+			$lastChanged = filemtime($fullPath);
+			if ($lastChanged > $this->lastChanged)
+				$this->lastChanged = $lastChanged;
+			
+			$rawContent = file_get_contents($fullPath);
+			if ($rawContent === FALSE) {
+				if ($commonEnv) return FALSE;
+				continue;
+			}
+
+			$rawYamlData = NULL;
+			try {
+				$rawYamlData = Yaml::parse(
+					str_replace("\t", '    ', $rawContent), 
+					self::$readingFlags
+				);
+			} catch (\Throwable $e) {
+				\MvcCore\Debug::Exception($e);
+			}
+		
+			if (!$rawYamlData) {
+				if ($commonEnv) return FALSE;
+				continue;
+			}
+
+			$objectTypes = [];
+			foreach ($rawYamlData as $firstLevelKey => & $firstlLevelValue)
+				$this->readYamlObjectTypes($objectTypes, $firstlLevelValue, $firstLevelKey);
+			foreach ($objectTypes as & $objectType)
+				if ($objectType[0]) $objectType[1] = (object) $objectType[1];
+			unset($objectTypes);
+
+			$this->envData[$envName] = $rawYamlData;
 		}
-		$this->data = & $rawYamlData;
-		foreach ($rawYamlData as $firstLevelKey => & $firstlLevelValue)
-			$this->readYamlObjectTypes($firstlLevelValue, $firstLevelKey);
-		foreach ($this->objectTypes as & $objectType)
-			if ($objectType[0]) $objectType[1] = (object) $objectType[1];
-		unset($this->objectTypes);
+		
 		return TRUE;
 	}
 
@@ -116,16 +126,16 @@ trait YamlRead
 	 * @param string $levelKey
 	 * @return void
 	 */
-	protected function readYamlObjectTypes (& $data, $levelKey) {
+	protected function readYamlObjectTypes (& $objectTypes, & $data, $levelKey) {
 		if (is_array($data)) {
 			$numericKeyCatched = FALSE;
 			foreach ($data as $key => & $value) {
 				if (is_numeric($key))
 					$numericKeyCatched = TRUE;
 				if (is_array($value))
-					$this->readYamlObjectTypes($value, $levelKey . '.' . $key);
+					$this->readYamlObjectTypes($objectTypes, $value, $levelKey . '.' . $key);
 			}
-			$this->objectTypes[$levelKey] = [$numericKeyCatched ? 0 : 1, & $data];
+			$objectTypes[$levelKey] = [$numericKeyCatched ? 0 : 1, & $data];
 		}
 	}
 }

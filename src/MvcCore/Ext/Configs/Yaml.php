@@ -28,7 +28,7 @@ namespace MvcCore\Ext\Configs;
  *   - comparing server hostname or IP, by value or regular expression.
  *   - checking system environment variable existence, value or by regular exp.
  */
-class Yaml extends \ArrayObject implements \MvcCore\IConfig
+class Yaml implements \Iterator, \ArrayAccess, \Countable, \MvcCore\IConfig
 {
 	/**
 	 * MvcCore - version:
@@ -40,6 +40,8 @@ class Yaml extends \ArrayObject implements \MvcCore\IConfig
 	use \MvcCore\Config\PropsGettersSetters;
 	use \MvcCore\Config\ReadWrite;
 	use \MvcCore\Config\MagicMethods;
+	use \MvcCore\Config\Environment;
+
 	use \MvcCore\Ext\Configs\Yamls\YamlProps;
 	use \MvcCore\Ext\Configs\Yamls\YamlRead;
 	use \MvcCore\Ext\Configs\Yamls\YamlDump;
