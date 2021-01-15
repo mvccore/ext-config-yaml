@@ -7,8 +7,8 @@
  * For the full copyright and license information, please view
  * the LICENSE.md file that are distributed with this source code.
  *
- * @copyright	Copyright (c) 2016 Tom Flídr (https://github.com/mvccore/mvccore)
- * @license		https://mvccore.github.io/docs/mvccore/4.0.0/LICENCE.md
+ * @copyright	Copyright (c) 2016 Tom Flidr (https://github.com/mvccore)
+ * @license		https://mvccore.github.io/docs/mvccore/5.0.0/LICENCE.md
  */
 
 namespace MvcCore\Ext\Configs;
@@ -28,14 +28,14 @@ namespace MvcCore\Ext\Configs;
  *   - comparing server hostname or IP, by value or regular expression.
  *   - checking system environment variable existence, value or by regular exp.
  */
-class Yaml implements \Iterator, \ArrayAccess, \Countable, \MvcCore\IConfig
-{
+class Yaml implements \Iterator, \ArrayAccess, \Countable, \MvcCore\IConfig {
+
 	/**
-	 * MvcCore - version:
+	 * MvcCore Extension - Config - Yaml - version:
 	 * Comparison by PHP function `version_compare();`.
 	 * @see http://php.net/manual/en/function.version-compare.php
 	 */
-	const VERSION = '5.0.0-alpha';
+	const VERSION = '5.0.0';
 
 	use \MvcCore\Config\PropsGettersSetters;
 	use \MvcCore\Config\ReadWrite;
