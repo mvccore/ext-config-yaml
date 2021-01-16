@@ -3,16 +3,16 @@
 	"type": "library",
 	"description": "MvcCore - Extension - Config - YAML - extension to have YAML configuration files syntax.",
 	"keywords": [
-		"mvc", 
-		"mvccore", 
-		"framework", 
-		"extension", 
-		"plugin", 
-		"plug-in", 
-		"ext", 
-		"config", 
-		"configuration", 
-		"syntax", 
+		"mvc",
+		"mvccore",
+		"framework",
+		"extension",
+		"plugin",
+		"plug-in",
+		"ext",
+		"config",
+		"configuration",
+		"syntax",
 		"yaml"
 	],
 	"license": ["BSD-3-Clause"],
@@ -22,14 +22,16 @@
 	}],
 	"require": {
 		"php": ">=5.4.0",
-		"mvccore/mvccore": "dev-master",
+		"mvccore/mvccore": "^5.0",
 		"symfony/yaml": "^2.8.47"
 	},
 	"suggest": {
 		"symfony/polyfill-ctype": "Install this package only if PHP extension `Ctype` (Character type checking) is not bundled or enabled as usual (as it is from version PHP 4.2.0)."
 	},
 	"autoload": {
-		"classmap": ["src/"]
+		"classmap": [
+			"src/"
+		]
 	},
 	"minimum-stability": "dev"
 }
