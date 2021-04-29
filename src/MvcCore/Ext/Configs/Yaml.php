@@ -35,14 +35,14 @@ class Yaml implements \Iterator, \ArrayAccess, \Countable, \MvcCore\IConfig {
 	 * Comparison by PHP function `version_compare();`.
 	 * @see http://php.net/manual/en/function.version-compare.php
 	 */
-	const VERSION = '5.0.0';
+	const VERSION = '5.0.1';
 
 	use \MvcCore\Config\PropsGettersSetters;
 	use \MvcCore\Config\ReadWrite;
 	use \MvcCore\Config\MagicMethods;
 	use \MvcCore\Config\Environment;
 
-	use \MvcCore\Ext\Configs\Yamls\YamlProps;
-	use \MvcCore\Ext\Configs\Yamls\YamlRead;
-	use \MvcCore\Ext\Configs\Yamls\YamlDump;
+	use \MvcCore\Ext\Configs\Yaml\YamlProps;
+	use \MvcCore\Ext\Configs\Yaml\YamlRead;
+	use \MvcCore\Ext\Configs\Yaml\YamlDump;
 }
