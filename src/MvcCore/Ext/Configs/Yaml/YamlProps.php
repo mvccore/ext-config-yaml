@@ -11,8 +11,11 @@
  * @license		https://mvccore.github.io/docs/mvccore/5.0.0/LICENSE.md
  */
 
-namespace MvcCore\Ext\Configs\Yamls;
+namespace MvcCore\Ext\Configs\Yaml;
 
+/**
+ * @mixin \MvcCore\Ext\Configs\Yaml
+ */
 trait YamlProps {
 
 	/**

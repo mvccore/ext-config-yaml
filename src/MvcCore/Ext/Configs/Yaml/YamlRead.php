@@ -11,10 +11,13 @@
  * @license		https://mvccore.github.io/docs/mvccore/5.0.0/LICENSE.md
  */
 
-namespace MvcCore\Ext\Configs\Yamls;
+namespace MvcCore\Ext\Configs\Yaml;
 
 use Symfony\Component\Yaml\Yaml;
 
+/**
+ * @mixin \MvcCore\Ext\Configs\Yaml
+ */
 trait YamlRead {
 
 	/**
@@ -54,7 +57,6 @@ trait YamlRead {
 	 * @return bool
 	 */
 	public function Read () {
-		/** @var $this \MvcCore\Config */
 		if ($this->envData) return TRUE;
 		
 		$app = self::$app ?: self::$app = \MvcCore\Application::GetInstance();
