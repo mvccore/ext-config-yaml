@@ -99,8 +99,6 @@ trait YamlRead {
 					str_replace("\t", '    ', $rawContent), 
 					self::$readingFlags
 				);
-			} catch (\Exception $e) { // backward compatibility
-				\MvcCore\Debug::Exception($e);
 			} catch (\Throwable $e) {
 				\MvcCore\Debug::Exception($e);
 			}
