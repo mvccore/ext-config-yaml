@@ -14,5 +14,5 @@ composer require mvccore/ext-config-yaml
 ## Usage
 Add this to `Bootstrap.php` or to very application beginning:
 ```php
-\MvcCore\Ext\Auth::GetInstance()->SetConfigClass('MvcCore\Ext\Config\Yaml');
+\MvcCore\Ext\Auth::GetInstance()->SetConfigClass('MvcCore\Ext\Configs\Yaml');
 ```
