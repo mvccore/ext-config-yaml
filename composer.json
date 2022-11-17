@@ -22,8 +22,8 @@
 	}],
 	"require": {
 		"php": ">=5.4.0",
-		"mvccore/mvccore": "^5.0",
-		"symfony/yaml": "^2.8.47"
+		"mvccore/mvccore": "^5.2",
+		"symfony/yaml": "^2.8.52"
 	},
 	"suggest": {
 		"symfony/polyfill-ctype": "Install this package only if PHP extension `Ctype` (Character type checking) is not bundled or enabled as usual (as it is from version PHP 4.2.0)."
