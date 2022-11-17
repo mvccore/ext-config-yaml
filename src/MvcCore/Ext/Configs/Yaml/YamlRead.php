@@ -28,7 +28,7 @@ trait YamlRead {
 
 	/**
 	 * Set globally MvcCore YAML Config reading flags.
-	 * @param int $readingFlags
+	 * @param  int $readingFlags
 	 * @return int
 	 */
 	public static function SetReadingFlags ($readingFlags) {
@@ -52,8 +52,8 @@ trait YamlRead {
 	 * - Load also environment specific config files and merge with already loaded data.
 	 * - Return all `raw string` values as `array`, `float`, `int` or `boolean` types.
 	 * - Retype whole values level into `\stdClass`, if there are no numeric keys.
-	 * @param string $fullPath
-	 * @param bool $systemConfig
+	 * @param  string $fullPath
+	 * @param  bool   $systemConfig
 	 * @return bool
 	 */
 	public function Read () {
@@ -124,8 +124,8 @@ trait YamlRead {
 	/**
 	 * Process all decoded YAML arrays and detect if there are all keys numeric
 	 * or not. If there is no numeric key, convert that array into `\stdClass`.
-	 * @param array $data
-	 * @param string $levelKey
+	 * @param  array  $data
+	 * @param  string $levelKey
 	 * @return void
 	 */
 	protected function readYamlObjectTypes (& $objectTypes, & $data, $levelKey) {

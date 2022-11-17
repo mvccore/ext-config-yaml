@@ -17,11 +17,19 @@ namespace MvcCore\Ext\Configs\Yaml;
  * @mixin \MvcCore\Ext\Configs\Yaml
  */
 trait YamlProps {
-
+	
 	/**
 	 * System config relative path from app root.
 	 * This value could be changed to any value at the very application start.
 	 * @var string
 	 */
-	protected static $systemConfigPath = '/%appPath%/config.yaml';
+	protected static $configSystemPath = '~/%appPath%/config.yaml';
+	
+	/**
+	 * Environment config relative path from app root.
+	 * This value could be changed to any value at the very application start.
+	 * Example: `'~/%appPath%/env.yaml'`
+	 * @var string|NULL
+	 */
+	protected static $configEnvironmentPath = NULL;
 }
