@@ -51,7 +51,9 @@ trait YamlDump {
 	 * @return \bool|string
 	 */
 	public function Dump () {
-		$dataClone = unserialize(serialize($this->currentData)); // clone
+		$dataClone = function_exists('igbinary_serialize') // clone
+			? igbinary_unserialize(igbinary_serialize($this->currentData))
+			: unserialize(serialize($this->currentData));
 		$maxLevel = 0;
 		$dataClone = $this->dumpYamlObjectTypes($dataClone, $maxLevel);
 		$result = Yaml::dump($dataClone, $maxLevel, 4, self::$dumpingFlags);
